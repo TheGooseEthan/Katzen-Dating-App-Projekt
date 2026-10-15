@@ -24,6 +24,11 @@ Git und GitHub - Versionsverwaltung und Zusammenarbeit
 HTML           - Struktur der Weboberfläche
 VS Code        - Entwicklungsumgebung
 
+Bildernachweise
+
+Katzenfots von Pinterest
+https://de.pinterest.com/pin/1087337903811725048/
+
 
 Lizens und Urheberrecht
 
