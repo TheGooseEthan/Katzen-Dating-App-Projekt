@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Päwfect Coup - Katzen Dating App</title>
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;height:100%;overflow:hidden;font-family:Arial,sans-serif}
+
+/* REGISTRATION */
+.background{position:fixed;inset:0;width:100%;height:100%;object-fit:fill;z-index:0}
+#hearts{position:fixed;inset:0;overflow:hidden;pointer-events:none;z-index:1}
+.floating-heart{position:absolute;bottom:-70px;height:auto;opacity:0;animation:floatUp linear forwards}
+@keyframes floatUp{0%{transform:translateY(0) rotate(-15deg);opacity:0}15%,85%{opacity:.85}100%{transform:translateY(-120vh) rotate(25deg);opacity:0}}
+.registration{position:fixed;z-index:2;width:min(125vw,1500px);aspect-ratio:1920/1080;left:50%;top:50%;transform:translate(-50%,-50%)}
+.registration-image{position:absolute;inset:0;width:100%;height:100%;object-fit:fill;pointer-events:none}
+.registration input{position:absolute;left:45.2%;width:20.8%;height:4.5%;padding:2px 8px;border:0;border-radius:12px;outline:none;background:transparent;color:#111;font:15px Arial,sans-serif;z-index:2}
+#name{top:44.4%}#password{top:49.25%}
+.registration input:focus{box-shadow:inset 0 0 0 1px #7775b7}
+#okButton{display:none;position:absolute;left:50%;top:57.2%;transform:translate(-50%,-50%);z-index:5;padding:9px 34px;border:2px solid #25202b;border-radius:12px;background:#7775b7;color:#fff;font:bold 16px Arial,sans-serif;cursor:pointer}
+#okButton.visible{display:block}#okButton:hover{background:#625fa4}
+
+/* SHARED FULL-WINDOW PAGES */
+.app-page{display:none;position:fixed;inset:0;width:100%;height:100%;overflow:hidden;background:#e8dada}
+.app-page.visible{display:block}
+.canvas{position:absolute;inset:0;width:100%;height:100%;overflow:hidden;isolation:isolate}
+.full-layer{position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:fill;margin:0;padding:0;border:0;pointer-events:none;user-select:none}
+
+/* HOMEPAGE */
+#homePage{z-index:10}#homeBackground{z-index:0}#selectionImage{z-index:2}
+.home-avatar{position:absolute;left:80.8%;top:1.8%;width:17.2%;aspect-ratio:1;padding:0;border:0;border-radius:50%;overflow:hidden;background:transparent;z-index:25;cursor:pointer;appearance:none;outline:none;box-shadow:none;-webkit-tap-highlight-color:transparent}
+.home-avatar:hover,.home-avatar:active,.home-avatar:focus,.home-avatar:focus-visible{outline:none;border:0;box-shadow:none;background:transparent;transform:none}
+.avatar-photo,.avatar-accessory{position:absolute;inset:0;width:100%;height:100%}
+.avatar-photo{z-index:0;object-fit:cover;object-position:center;border-radius:50%}
+.avatar-accessory{display:none!important}
+
+/* No more profiles left in the session */
+#allDoneMessage{display:none;position:absolute;left:25%;top:32%;width:50%;padding:2%;z-index:40;text-align:center;color:#111;font-size:clamp(18px,2.2vw,34px);font-weight:bold;background:rgba(232,218,218,.94);border:2px solid #b7a9a9;border-radius:18px}
+#allDoneMessage.visible{display:block}
+
+/* CAT PROFILE CARD */
+#profileContent,.profile-content-snapshot{position:absolute;inset:0;z-index:10;pointer-events:none}
+.cat-photo-frame{position:absolute;left:39.42%;top:23.7%;width:21.55%;height:36.4%;overflow:hidden;background:transparent}
+.cat-photo{display:block;width:100%;height:100%;object-fit:cover;object-position:center}
+.profile-name{position:absolute;left:40.35%;top:61.35%;width:17.3%;height:4.5%;display:flex;align-items:center;overflow:hidden;color:#111;font-size:clamp(10px,1vw,21px);font-weight:bold;white-space:nowrap}
+.nationality-name{display:none}
+.nationality-flag{position:absolute;left:57.7%;top:61.65%;width:2.8%;height:3.5%;object-fit:contain}
+.profile-description{position:absolute;left:39.45%;top:67.25%;width:21.45%;height:8.45%;display:flex;align-items:center;justify-content:center;padding:.3%;overflow:hidden;color:#111;font-size:clamp(10px,1vw,20px);line-height:1.2;text-align:center;overflow-wrap:anywhere}
+
+/* BUTTONS STAY PUT WHILE THE CARD DEPARTS */
+.button-art{z-index:20}
+.action-button{position:absolute;z-index:75;padding:0;border:0;border-radius:50%;background:transparent;cursor:pointer;appearance:none;-webkit-tap-highlight-color:transparent;transition:transform 100ms ease,background-color 100ms ease,box-shadow 100ms ease,filter 100ms ease}
+#skipButton{left:38.2%;top:82.3%;width:6.5%;height:11%}
+#reportButton{left:46.7%;top:82.3%;width:6.5%;height:11%}
+#likeButton{left:55.2%;top:82.3%;width:6.5%;height:11%}
+.action-button:hover{background:rgba(255,255,255,.12);filter:brightness(1.08)}
+.action-button:active,.action-button.pressed{transform:scale(.92);background:rgba(255,255,255,.26);box-shadow:inset 0 0 0 3px rgba(255,255,255,.55);filter:brightness(1.2)}
+.action-button:focus-visible{outline:3px solid #7775b7;outline-offset:2px}
+
+/* ONLY THE SELECTION IMAGE AND CURRENT CAT DATA ARE SNAPSHOTTED */
+.swipeSnapshot{position:absolute;inset:0;width:100%;height:100%;z-index:50;overflow:hidden;pointer-events:none}
+.swipeSnapshot .snapshot-selection{position:absolute;inset:0;width:100%;height:100%;object-fit:fill;z-index:2}
+.swipeSnapshot .profile-content-snapshot{z-index:10}
+.swipeSnapshot.swipe-left{animation:swipeLeftGravity 950ms ease-in forwards}
+.swipeSnapshot.swipe-right{animation:swipeRightGravity 950ms ease-in forwards}
+.swipeSnapshot.swipe-down{animation:swipeDown 700ms ease-in forwards}
+@keyframes swipeRightGravity{0%,20%{transform:translate(0,0) rotate(0);opacity:1}3%{transform:translate(-.35%,0) rotate(-.5deg)}6%{transform:translate(.35%,0) rotate(.5deg)}9%{transform:translate(-.25%,0) rotate(-.35deg)}12%{transform:translate(.25%,0) rotate(.35deg)}36%{transform:translate(22vw,0) rotate(8deg)}60%{transform:translate(50vw,18vh) rotate(18deg)}100%{transform:translate(110vw,100vh) rotate(35deg);opacity:0}}
+@keyframes swipeLeftGravity{0%,20%{transform:translate(0,0) rotate(0);opacity:1}3%{transform:translate(.35%,0) rotate(.5deg)}6%{transform:translate(-.35%,0) rotate(-.5deg)}9%{transform:translate(.25%,0) rotate(.35deg)}12%{transform:translate(-.25%,0) rotate(-.35deg)}36%{transform:translate(-22vw,0) rotate(-8deg)}60%{transform:translate(-50vw,18vh) rotate(-18deg)}100%{transform:translate(-110vw,100vh) rotate(-35deg);opacity:0}}
+@keyframes swipeDown{0%,20%{transform:translate(0,0) rotate(0);opacity:1}3%{transform:translate(-.35%,0) rotate(-.5deg)}6%{transform:translate(.35%,0) rotate(.5deg)}9%{transform:translate(-.25%,0) rotate(-.35deg)}12%{transform:translate(.25%,0) rotate(.35deg)}100%{transform:translate(0,110vh) rotate(2deg);opacity:0}}
+
+/* Heart/X feedback: never show both at the same time. Match gets highest layer. */
+.feedback-layer{display:none;opacity:0;z-index:150}
+.feedback-layer.visible{display:block;animation:feedbackFade 850ms ease-out forwards}
+@keyframes feedbackFade{0%{opacity:0}12%,72%{opacity:1}100%{opacity:0}}
+#matchOverlay{display:none;z-index:200;transform-origin:center;pointer-events:none}
+#matchOverlay.visible{display:block;animation:matchPulse 1800ms ease-in-out forwards}
+@keyframes matchPulse{0%{opacity:0;transform:scale(.8)}18%{opacity:1;transform:scale(1.04)}32%{opacity:.85;transform:scale(.98)}46%{opacity:1;transform:scale(1.03)}65%{opacity:1;transform:scale(1)}100%{opacity:0;transform:scale(1.04)}}
+
+/* PROFILE PAGE */
+#profilePage{z-index:70}#profileBackground{z-index:0}
+.profile-avatar{position:absolute;left:17%;top:12.8%;width:22%;aspect-ratio:1;border-radius:50%;overflow:hidden;background:#d7caca;z-index:10}
+.profile-name-cover{position:absolute;left:42.05%;top:22.55%;width:26.55%;height:9.7%;display:flex;align-items:center;background:#d8caca;z-index:10}
+.profile-name-cover input{min-width:0;border:0;outline:none;background:transparent;color:#111;font-family:Arial,sans-serif;font-size:clamp(14px,2.5vw,42px);font-weight:bold;text-align:center}
+#playerDisplayName{flex:1;width:1px}#playerAge{width:20%}
+.profile-flag-cover{position:absolute;left:71.85%;top:22.55%;width:8.15%;height:9.7%;display:flex;align-items:center;justify-content:center;background:#d8caca;z-index:10}
+#playerFlagButton{width:100%;height:100%;padding:5%;border:0;outline:none;background:transparent;cursor:pointer}
+#playerFlagButton img{width:100%;height:100%;object-fit:contain}
+#playerDescription{position:absolute;left:42.05%;top:35.3%;width:37.95%;height:14.3%;padding:1%;resize:none;border:0;outline:none;background:#d8caca;color:#111;font-family:Arial,sans-serif;font-size:clamp(12px,1.8vw,30px);line-height:1.25;text-align:center;z-index:10}
+/* Lowered below the baked-in "Statistiken" heading. */
+.stats-panel{position:absolute;left:42.2%;top:68.5%;width:37.5%;height:19.5%;padding:1% 1.5%;background:transparent;border:0;z-index:10;display:flex;flex-direction:column;justify-content:space-around}
+.stat-row{display:flex;align-items:center;justify-content:space-between;min-height:0;gap:8px;color:#111;font-size:clamp(13px,1.7vw,30px);font-weight:bold}
+.stat-row span:last-child{min-width:2ch;text-align:right}
+#profileBackImage{z-index:1}#accessoryLeftImage,#accessoryRightImage{z-index:2}
+.profile-button{position:absolute;padding:0;border:0;background:transparent;cursor:pointer;appearance:none;z-index:30;-webkit-tap-highlight-color:transparent}
+#profileBackButton{left:1.3%;top:1.2%;width:5.8%;height:10%}
+#accessoryLeftButton{left:19.8%;top:53.8%;width:6%;height:10%}
+#accessoryRightButton{left:30.8%;top:53.8%;width:6%;height:10%}
+.profile-button:active{filter:brightness(1.1)}
+.accessory-caption{position:absolute;left:17%;top:64.3%;width:22%;height:3%;overflow:hidden;color:#111;text-align:center;font-size:clamp(9px,.8vw,15px);z-index:12;pointer-events:none}
+
+/* DEBUG MENU — PRESS P */
+#debugMenu{display:none;position:fixed;top:10px;right:10px;width:360px;max-height:90vh;overflow:auto;padding:14px;background:rgba(15,15,25,.96);color:#7CFFB2;border:1px solid #7CFFB2;border-radius:8px;font:12px/1.5 Consolas,monospace;white-space:pre-wrap;overflow-wrap:anywhere;z-index:99999;pointer-events:none}
+#debugMenu.visible{display:block}
+@media(max-width:700px){.registration input{padding:1px 4px;font-size:12px}#okButton{padding:6px 22px;font-size:13px}.profile-name{font-size:10px}.profile-description{font-size:10px}}
+</style>
+</head>
+<body>
+<!-- Shared audio: BGM continues while the page sections change. -->
+<audio id="bgmAudio" loop preload="auto"></audio>
+<audio id="pressAudio" preload="auto"></audio>
+<audio id="matchMadeAudio" preload="auto"></audio>
+<audio id="xedNoAudio" preload="auto"></audio>
+<audio id="likedAudio" preload="auto"></audio>
+
+<!-- REGISTRATION -->
+<img id="registrationBackground" class="background" alt="">
+<div id="hearts" aria-hidden="true"></div>
+<main class="registration" id="registrationPage">
+<img id="registrationBoxImage" class="registration-image" alt="">
+<form id="registrationForm" autocomplete="on">
+<input id="name" name="username" type="text" aria-label="Name" autocomplete="username" maxlength="30" required>
+<input id="password" name="password" type="password" aria-label="Passwort" autocomplete="new-password" minlength="8" required>
+<button id="okButton" type="submit">OK</button>
+</form>
+</main>
+
+<!-- HOMEPAGE -->
+<section id="homePage" class="app-page" aria-label="Homepage">
+<div class="canvas" id="homeCanvas">
+<img id="homeBackground" class="full-layer" alt="">
+<img id="selectionImage" class="full-layer" alt="">
+<button id="openProfileButton" class="home-avatar" type="button" aria-label="Profil öffnen">
+<img id="homePlayerPhoto" class="avatar-photo" alt="">
+<img id="homePlayerAccessory" class="avatar-accessory" alt="">
+</button>
+<div id="profileContent">
+<div class="cat-photo-frame"><img id="catPhoto" class="cat-photo" alt="" draggable="false"></div>
+<div id="profileName" class="profile-name"></div>
+<div id="nationalityName" class="nationality-name"></div>
+<img id="nationalityFlag" class="nationality-flag" alt="">
+<div id="profileDescription" class="profile-description"></div>
+</div>
+<img id="heartButtonImage" class="full-layer button-art" alt="">
+<img id="xButtonImage" class="full-layer button-art" alt="">
+<img id="flagButtonImage" class="full-layer button-art" alt="">
+<button id="skipButton" class="action-button" type="button" aria-label="Katze überspringen"></button>
+<button id="reportButton" class="action-button" type="button" aria-label="Katze melden"></button>
+<button id="likeButton" class="action-button" type="button" aria-label="Katze mögen"></button>
+<img id="likedOverlay" class="full-layer feedback-layer" alt="">
+<img id="xedOverlay" class="full-layer feedback-layer" alt="">
+<img id="matchOverlay" class="full-layer" alt="">
+<div id="allDoneMessage">Alle Profile gesehen!<br><small>Du hast alle verfügbaren Katzen bewertet.</small></div>
+</div>
+</section>
+
+<!-- PROFILE PAGE -->
+<section id="profilePage" class="app-page" aria-label="Profil">
+<div class="canvas" id="profileCanvas">
+<img id="profileBackground" class="full-layer" alt="">
+<div class="profile-avatar">
+<img id="profilePlayerPhoto" class="avatar-photo" alt="">
+<img id="profilePlayerAccessory" class="avatar-accessory" alt="">
+</div>
+<div class="profile-name-cover">
+<input id="playerDisplayName" type="text" aria-label="Profilname" maxlength="30">
+<input id="playerAge" type="number" min="18" max="120" value="20" aria-label="Alter">
+</div>
+<div class="profile-flag-cover"><button id="playerFlagButton" type="button" aria-label="Nationalität wechseln"><img id="playerFlagPreview" alt=""></button></div>
+<textarea id="playerDescription" aria-label="Profilbeschreibung" maxlength="350" placeholder="Deine Beschreibung..."></textarea>
+<div class="stats-panel">
+<div class="stat-row"><span>Matches</span><span id="statsMatches">0</span></div>
+<div class="stat-row"><span>Likes</span><span id="statsLikes">0</span></div>
+<div class="stat-row"><span>Skipped</span><span id="statsSkipped">0</span></div>
+</div>
+<img id="profileBackImage" class="full-layer" alt="">
+<img id="accessoryLeftImage" class="full-layer" alt="">
+<img id="accessoryRightImage" class="full-layer" alt="">
+<button id="profileBackButton" class="profile-button" type="button" aria-label="Zur Homepage"></button>
+<button id="accessoryLeftButton" class="profile-button" type="button" aria-label="Vorheriges Accessoire"></button>
+<button id="accessoryRightButton" class="profile-button" type="button" aria-label="Nächstes Accessoire"></button>
+<div id="accessoryCaption" class="accessory-caption">Kein Accessoire</div>
+</div>
+</section>
+<div id="debugMenu">Debug menu loading...</div>
+
+<script>
+/* Asset loader: try published assets first, then the project-root folders.
+   Six parent levels from publish/ lead back to the project root. */
+function encodePath(path){return path.split("/").map(encodeURIComponent).join("/")}
+function assetCandidates(path){return [encodePath(path),"../../../../../../"+encodePath(path)]}
+function loadImageWithFallback(path,onLoad,onError){
+    const candidates=assetCandidates(path);let index=0;const image=new Image();
+    image.onload=()=>onLoad(image);
+    image.onerror=()=>{index++;if(index<candidates.length)image.src=candidates[index];else if(onError)onError(path)};
+    image.src=candidates[0];return image;
+}
+function setAsset(element,path){
+    let index=0;const candidates=assetCandidates(path);
+    element.onerror=()=>{index++;if(index<candidates.length)element.src=candidates[index];else console.error("Image not found:",path)};
+    element.src=candidates[0];
+}
+/* Crop transparent margins, including images with a mostly solid background. */
+function trimTransparentImage(source){
+    try{
+        const canvas=document.createElement("canvas");
+        canvas.width=source.naturalWidth; canvas.height=source.naturalHeight;
+        const ctx=canvas.getContext("2d",{willReadFrequently:true});
+        ctx.drawImage(source,0,0);
+        const w=canvas.width,h=canvas.height,data=ctx.getImageData(0,0,w,h).data;
+        const points=[[1,1],[w-2,1],[1,h-2],[w-2,h-2]];
+        let bg=[0,0,0],bgA=0,count=0;
+        for(const [x,y] of points){
+            const i=(y*w+x)*4;
+            if(data[i+3]>8){bg[0]+=data[i];bg[1]+=data[i+1];bg[2]+=data[i+2];bgA+=data[i+3];count++;}
+        }
+        if(count){bg=bg.map(v=>v/count);bgA/=count;}
+        const transparentBackground=bgA<20;
+        let minX=w,minY=h,maxX=-1,maxY=-1;
+        for(let y=0;y<h;y++){
+            for(let x=0;x<w;x++){
+                const i=(y*w+x)*4,a=data[i+3];
+                if(a<16)continue;
+                let visible;
+                if(transparentBackground){
+                    visible=a>20;
+                }else{
+                    const diff=Math.sqrt((data[i]-bg[0])**2+(data[i+1]-bg[1])**2+(data[i+2]-bg[2])**2);
+                    visible=(Math.abs(a-bgA)>28 && a>35) || (diff>36 && a>35);
+                }
+                if(visible){minX=Math.min(minX,x);minY=Math.min(minY,y);maxX=Math.max(maxX,x);maxY=Math.max(maxY,y);}
+            }
+        }
+        if(maxX<minX||maxY<minY)return source.src;
+        /* A little padding preserves outlines and antialiasing. */
+        const padX=Math.max(1,Math.round((maxX-minX+1)*.015));
+        const padY=Math.max(1,Math.round((maxY-minY+1)*.06));
+        minX=Math.max(0,minX-padX); minY=Math.max(0,minY-padY);
+        maxX=Math.min(w-1,maxX+padX); maxY=Math.min(h-1,maxY+padY);
+        const cropW=maxX-minX+1,cropH=maxY-minY+1;
+        if(cropW>w*.995&&cropH>h*.995)return source.src;
+        const cropped=document.createElement("canvas");
+        cropped.width=cropW; cropped.height=cropH;
+        cropped.getContext("2d").drawImage(source,minX,minY,cropW,cropH,0,0,cropW,cropH);
+        return cropped.toDataURL("image/png");
+    }catch(err){console.warn("Could not crop logo margins:",err);return source.src;}
+}
+function setTrimmedAsset(element,path){
+    loadImageWithFallback(path,image=>{element.src=trimTransparentImage(image)},p=>console.error("Image not found:",p));
+}
+const UI="Benutzer Interface/";
+
+/* SOUND: BGM loops quietly; individual action sounds are separate. */
+const bgmAudio=document.getElementById("bgmAudio");
+const pressAudio=document.getElementById("pressAudio");
+const matchMadeAudio=document.getElementById("matchMadeAudio");
+const xedNoAudio=document.getElementById("xedNoAudio");
+const likedAudio=document.getElementById("likedAudio");
+bgmAudio.volume=0.20;
+pressAudio.volume=0.55;
+matchMadeAudio.volume=0.85;
+xedNoAudio.volume=0.85;
+likedAudio.volume=0.85;
+function setAudioSource(audio,path){
+    const candidates=assetCandidates(path);let index=0;
+    audio.onerror=()=>{
+        index++;
+        if(index<candidates.length){audio.src=candidates[index];audio.load();}
+        else console.error("Audio file not found:",path);
+    };
+    audio.src=candidates[0];audio.load();
+}
+function startBackgroundMusic(){
+    if(!bgmAudio.paused)return;
+    const result=bgmAudio.play();
+    if(result&&typeof result.catch==="function")result.catch(()=>{/* Retry after a user gesture. */});
+}
+function playOneShot(audio){
+    startBackgroundMusic();
+    try{audio.pause();audio.currentTime=0;}catch{}
+    const result=audio.play();
+    if(result&&typeof result.catch==="function")result.catch(()=>{});
+    return result;
+}
+function playPressSound(){playOneShot(pressAudio)}
+setAudioSource(bgmAudio,"SFX/BGM.wav");
+setAudioSource(pressAudio,"SFX/Press.mp3");
+setAudioSource(matchMadeAudio,"SFX/MatchMade.wav");
+setAudioSource(xedNoAudio,"SFX/XedNo.wav");
+setAudioSource(likedAudio,"SFX/Liked.wav");
+bgmAudio.addEventListener("canplay",startBackgroundMusic,{once:true});
+/* Autoplay may be blocked until a user gesture; retry on first interaction. */
+document.addEventListener("pointerdown",startBackgroundMusic,{once:true,capture:true});
+document.addEventListener("keydown",startBackgroundMusic,{once:true,capture:true});
+/* The X action has its own vocal effect instead of the generic button click sound. */
+document.addEventListener("pointerdown",event=>{
+    const button=event.target instanceof Element ? event.target.closest("button") : null;
+    if(button && button.id!=="skipButton" && button.id!=="likeButton")playPressSound();
+},true);
+document.addEventListener("keydown",event=>{
+    const button=event.target instanceof Element ? event.target.closest("button") : null;
+    if(!event.repeat && (event.key==="Enter"||event.key===" ") && button && button.id!=="skipButton" && button.id!=="likeButton")playPressSound();
+},true);
+
+/* The logos are baked into the replacement background PNGs; no extra logo layers. */
+setAsset(document.getElementById("registrationBackground"),UI+"HintergrundRegistrierung.png");
+setAsset(document.getElementById("registrationBoxImage"),UI+"BoxRegistrierung.png");
+setAsset(document.getElementById("homeBackground"),UI+"HomePage.png");
+setAsset(document.getElementById("selectionImage"),UI+"Auswahl.png");
+setAsset(document.getElementById("heartButtonImage"),UI+"Herzen.png");
+setAsset(document.getElementById("xButtonImage"),UI+"X.png");
+setAsset(document.getElementById("flagButtonImage"),UI+"Flagge.png");
+setAsset(document.getElementById("likedOverlay"),UI+"Geherzt.png");
+setAsset(document.getElementById("xedOverlay"),UI+"Xed.png");
+setAsset(document.getElementById("matchOverlay"),UI+"Match.png");
+setAsset(document.getElementById("profileBackground"),UI+"ProfilHintergrund.png");
+setAsset(document.getElementById("profileBackImage"),UI+"XBack.png");
+setAsset(document.getElementById("accessoryLeftImage"),UI+"AuswahlLinks.png");
+setAsset(document.getElementById("accessoryRightImage"),UI+"AuswahlRechts.png");
+setAsset(document.getElementById("homePlayerPhoto"),"Fotos-von-Katzen/Spieler.jpg");
+setAsset(document.getElementById("profilePlayerPhoto"),"Fotos-von-Katzen/Spieler.jpg");
+
+/* Floating registration hearts */
+const heartsContainer=document.getElementById("hearts");
+function createFloatingHeart(){const img=document.createElement("img");img.className="floating-heart";setAsset(img,UI+"Herz.png");img.style.left=Math.random()*96+"%";img.style.width=20+Math.random()*30+"px";img.style.animationDuration=7+Math.random()*7+"s";heartsContainer.appendChild(img);img.addEventListener("animationend",()=>img.remove(),{once:true})}
+for(let i=0;i<12;i++)createFloatingHeart();const floatingHeartTimer=setInterval(createFloatingHeart,700);
+
+/* Cat profiles */
+const cats=[
+{id:"cat01",photo:"Fotos-von-Katzen/Katze01.jpg",name:"Polina Svetlana",age:22,country:"Russia",flag:"RUS.jpg",description:"Vodka enthusist, and searching for a cat who can treat me right. No soft sissies!"},
+{id:"cat02",photo:"Fotos-von-Katzen/Katze02.jpg",name:"George Smith",age:34,country:"United Kingdom",flag:"UNI.jpg",description:"British by birth, stoic by nature. Interested in tea and biscuits."},
+{id:"cat03",photo:"Fotos-von-Katzen/Katze03.jpg",name:"Karl Schmidt",age:27,country:"Germany",flag:"GER.jpg",description:"Best employee of Deutsche Bank. Restaurant date with me but dont be late tho. :)"},
+{id:"cat04",photo:"Fotos-von-Katzen/Katze04.jpg",name:"Adit Pratama",age:24,country:"India",flag:"IND.jpg",description:"YOLO! Im just living my life. Motor rides at night with u?"},
+{id:"cat05",photo:"Fotos-von-Katzen/Katze05.jpg",name:"Kawaii Bobu",age:21,country:"Japan",flag:"JAP.jpg",description:"Im just a shy otaku. Currently looking for someone to watch anime and chill <3"},
+{id:"cat06",photo:"Fotos-von-Katzen/Katze06.jpg",name:"Alexandru Moroi",age:136,country:"Romania",flag:"ROM.jpg",description:"Very interested in anyone who is human and has a lot of blood."},
+{id:"cat07",photo:"Fotos-von-Katzen/Katze07.jpg",name:"Ivan Nadym",age:23,country:"Russia",flag:"RUS.jpg",description:"Have you ever tried walking outside in temperatures that can freeze your body? With me you'll stay warm ;)"},
+{id:"cat08",photo:"Fotos-von-Katzen/Katze08.jpg",name:"Ratmyr Mitko",age:53,country:"Bulgaria",flag:"BUL.jpg",description:"Looks might be decieving but I can promise you I know how to treat a woman."},
+{id:"cat09",photo:"Fotos-von-Katzen/Katze09.jpg",name:"Felix Freeman",age:33,country:"Romania",flag:"ROM.jpg",description:"Tax Evasion? No, that's not why I am living in Romania! I only pay in cash on dates."},
+{id:"cat10",photo:"Fotos-von-Katzen/Katze10.jpg",name:"Tom Sail",age:35,country:"United States",flag:"USA.jpg",description:"Famous from many movies... yeah. Love laughing all the time."}
+];
+function shuffle(list){const copy=[...list];for(let i=copy.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[copy[i],copy[j]]=[copy[j],copy[i]]}return copy}
+let catQueue=shuffle(cats),currentCat=null,isAnimating=false;
+let likes=0,skipped=0,matches=0,reports=0;
+const likedCats=[],skippedCats=[],reportedCats=[],matchedCats=[];
+function getNextCat(){return catQueue.shift()||null}
+const catPhoto=document.getElementById("catPhoto"),profileName=document.getElementById("profileName"),nationalityFlag=document.getElementById("nationalityFlag"),profileDescription=document.getElementById("profileDescription");
+const selectionImage=document.getElementById("selectionImage"),profileContent=document.getElementById("profileContent"),allDoneMessage=document.getElementById("allDoneMessage");
+const buttonArtwork=["heartButtonImage","xButtonImage","flagButtonImage","skipButton","reportButton","likeButton"].map(id=>document.getElementById(id));
+function setAllDone(done){
+    allDoneMessage.classList.toggle("visible",done);
+    if(done){
+        selectionImage.style.visibility="hidden";
+        profileContent.style.visibility="hidden";
+        buttonArtwork.forEach(el=>el.style.visibility="hidden");
+        clearFeedback();
+    }else{
+        selectionImage.style.visibility="";
+        profileContent.style.visibility="";
+        buttonArtwork.forEach(el=>el.style.visibility="");
+    }
+}
+function renderCat(cat){
+    currentCat=cat;
+    if(!cat){
+        catPhoto.removeAttribute("src");catPhoto.alt="";
+        profileName.textContent="";nationalityFlag.removeAttribute("src");
+        nationalityFlag.alt="";nationalityFlag.title="";profileDescription.textContent="";
+        setAllDone(true);return;
+    }
+    setAllDone(false);
+    setAsset(catPhoto,cat.photo);catPhoto.alt=`${cat.name}, ${cat.age}`;
+    profileName.textContent=`${cat.name}, ${cat.age}`;
+    setAsset(nationalityFlag,"Nationalitäten/"+cat.flag);
+    nationalityFlag.alt=cat.country;nationalityFlag.title=cat.country;
+    profileDescription.textContent=cat.description;
+}
+
+/* Registration */
+const registrationForm=document.getElementById("registrationForm"),nameInput=document.getElementById("name"),passwordInput=document.getElementById("password"),okButton=document.getElementById("okButton");
+const registrationPage=document.getElementById("registrationPage"),registrationBackground=document.getElementById("registrationBackground"),homePage=document.getElementById("homePage"),profilePage=document.getElementById("profilePage");
+function updateOkButton(){okButton.classList.toggle("visible",nameInput.value.trim().length>0&&passwordInput.value.length>=8)}
+nameInput.addEventListener("input",updateOkButton);passwordInput.addEventListener("input",updateOkButton);
+registrationForm.addEventListener("submit",event=>{event.preventDefault();const playerName=nameInput.value.trim();if(!playerName||passwordInput.value.length<8)return;clearInterval(floatingHeartTimer);heartsContainer.style.display="none";registrationPage.style.display="none";registrationBackground.style.display="none";document.getElementById("playerDisplayName").value=playerName;renderCat(getNextCat());homePage.classList.add("visible")});
+
+/* Profile page and labelled statistics */
+const playerDisplayName=document.getElementById("playerDisplayName"),statsMatches=document.getElementById("statsMatches"),statsLikes=document.getElementById("statsLikes"),statsSkipped=document.getElementById("statsSkipped");
+function updateStats(){statsMatches.textContent=matches;statsLikes.textContent=likes;statsSkipped.textContent=skipped}
+document.getElementById("openProfileButton").addEventListener("click",()=>{homePage.classList.remove("visible");profilePage.classList.add("visible");updateStats()});
+document.getElementById("profileBackButton").addEventListener("click",()=>{profilePage.classList.remove("visible");homePage.classList.add("visible")});
+
+/* Player nationality flag */
+const playerFlags=[{country:"Russia",file:"RUS.jpg"},{country:"United Kingdom",file:"UNI.jpg"},{country:"Germany",file:"GER.jpg"},{country:"India",file:"IND.jpg"},{country:"Japan",file:"JAP.jpg"},{country:"Romania",file:"ROM.jpg"},{country:"Bulgaria",file:"BUL.jpg"},{country:"United States",file:"USA.jpg"}];
+let playerFlagIndex=2;const playerFlagPreview=document.getElementById("playerFlagPreview"),playerFlagButton=document.getElementById("playerFlagButton");
+function updatePlayerFlag(){const flag=playerFlags[playerFlagIndex];setAsset(playerFlagPreview,"Nationalitäten/"+flag.file);playerFlagPreview.alt=flag.country;playerFlagButton.title="Nationalität: "+flag.country}
+updatePlayerFlag();playerFlagButton.addEventListener("click",()=>{playerFlagIndex=(playerFlagIndex+1)%playerFlags.length;updatePlayerFlag()});
+
+/* Accessories are complete cat portraits in the project-root Accessories folder.
+   Select the image itself; do not layer it over Spieler.jpg. Beanie was removed. */
+const accessories=[
+{name:"Kein Accessoire",file:null},
+{name:"Sunglasses",file:"Sunglasses.png"},
+{name:"Chain",file:"Chain.png"},
+{name:"Sunhat",file:"Sunhat.png"},
+{name:"Bonet",file:"Bonet.png"},
+{name:"Choker",file:"Choker.png"},
+{name:"Chef",file:"Chef.png"},
+{name:"Cowboy",file:"Cowboy.png"}
+];
+let accessoryIndex=0,accessoryVersion=0;
+const homePlayerPhoto=document.getElementById("homePlayerPhoto");
+const profilePlayerPhoto=document.getElementById("profilePlayerPhoto");
+const homePlayerAccessory=document.getElementById("homePlayerAccessory");
+const profilePlayerAccessory=document.getElementById("profilePlayerAccessory");
+const accessoryCaption=document.getElementById("accessoryCaption");
+function updateAccessory(){
+    const accessory=accessories[accessoryIndex];
+    accessoryCaption.textContent=accessory.name;
+    /* Hide old transparent overlays; the selected PNG already has the accessory on the cat. */
+    homePlayerAccessory.removeAttribute("src");
+    profilePlayerAccessory.removeAttribute("src");
+    const version=++accessoryVersion;
+    const portraitPath=accessory.file ? "Accessories/"+accessory.file : "Fotos-von-Katzen/Spieler.jpg";
+    for(const photo of [homePlayerPhoto,profilePlayerPhoto]){
+        setAsset(photo,portraitPath);
+        photo.alt=accessory.file ? "Spieler mit " + accessory.name : "Spieler";
+    }
+}
+document.getElementById("accessoryLeftButton").addEventListener("click",()=>{
+    accessoryIndex=(accessoryIndex-1+accessories.length)%accessories.length;
+    updateAccessory();
+});
+document.getElementById("accessoryRightButton").addEventListener("click",()=>{
+    accessoryIndex=(accessoryIndex+1)%accessories.length;
+    updateAccessory();
+});
+updateAccessory();
+
+/* Card-only snapshot: Auswahl.png + current cat information, not homepage/logo/buttons. */
+const homeCanvas=document.getElementById("homeCanvas");
+function createSwipeSnapshot(){const snapshot=document.createElement("div");snapshot.className="swipeSnapshot";const card=selectionImage.cloneNode(true);card.removeAttribute("id");card.classList.add("snapshot-selection");snapshot.appendChild(card);const content=profileContent.cloneNode(true);content.removeAttribute("id");content.classList.add("profile-content-snapshot");content.querySelectorAll("[id]").forEach(el=>el.removeAttribute("id"));snapshot.appendChild(content);homeCanvas.appendChild(snapshot);return snapshot}
+
+/* Exclusive action feedback: Match replaces Geherzt. */
+const likedOverlay=document.getElementById("likedOverlay"),xedOverlay=document.getElementById("xedOverlay"),matchOverlay=document.getElementById("matchOverlay");
+let feedbackTimer=null;
+function clearFeedback(){if(feedbackTimer!==null){clearTimeout(feedbackTimer);feedbackTimer=null}[likedOverlay,xedOverlay,matchOverlay].forEach(image=>image.classList.remove("visible"))}
+function showFeedback(image,duration){clearFeedback();void image.offsetWidth;image.classList.add("visible");feedbackTimer=setTimeout(()=>{image.classList.remove("visible");feedbackTimer=null},duration)}
+function playLikeSound(hasMatch){
+    // Liked.wav always plays when Like is pressed.
+    const onLikedEnded=()=>{
+        likedAudio.removeEventListener("ended",onLikedEnded);
+        if(hasMatch)playOneShot(matchMadeAudio);
+    };
+    likedAudio.addEventListener("ended",onLikedEnded,{once:true});
+    const result=playOneShot(likedAudio);
+    if(result&&typeof result.catch==="function"){
+        result.catch(()=>{
+            likedAudio.removeEventListener("ended",onLikedEnded);
+            if(hasMatch)playOneShot(matchMadeAudio);
+        });
+    }
+    // Fallback if the audio element cannot start or is missing.
+    if(hasMatch){
+        setTimeout(()=>{
+            if(likedAudio.paused && likedAudio.currentTime===0){
+                likedAudio.removeEventListener("ended",onLikedEnded);
+                playOneShot(matchMadeAudio);
+            }
+        },1200);
+    }
+}
+
+function performAction(action,direction){
+    if(isAnimating||!currentCat)return;
+    isAnimating=true;
+    const oldCat=currentCat;
+    if(action==="like"){likes++;likedCats.push(oldCat.id)}
+    else if(action==="skip"){skipped++;skippedCats.push(oldCat.id)}
+    else{reports++;reportedCats.push(oldCat.id)}
+    updateStats();
+
+    if(action==="like"){
+        const hasMatch=Math.random()<.10;
+        if(hasMatch){
+            matches++;matchedCats.push(oldCat.id);
+            showFeedback(matchOverlay,1800);
+            // Play Liked.wav first, then MatchMade.wav so they do not overlap.
+            playLikeSound(hasMatch);
+        }else{
+            showFeedback(likedOverlay,850);
+            playLikeSound(false);
+        }
+    }else if(action==="skip"){
+        showFeedback(xedOverlay,850);
+        playOneShot(xedNoAudio);
+    }else{
+        clearFeedback();
+    }
+
+    const snapshot=createSwipeSnapshot();
+    selectionImage.style.visibility="hidden";
+    profileContent.style.visibility="hidden";
+    const nextCat=getNextCat();
+    renderCat(nextCat);
+
+    requestAnimationFrame(()=>snapshot.classList.add({left:"swipe-left",right:"swipe-right",down:"swipe-down"}[direction]));
+    snapshot.addEventListener("animationend",()=>{
+        snapshot.remove();
+        if(currentCat){
+            selectionImage.style.visibility="";
+            profileContent.style.visibility="";
+            buttonArtwork.forEach(el=>el.style.visibility="");
+            allDoneMessage.classList.remove("visible");
+        }else{
+            setAllDone(true);
+        }
+        isAnimating=false;
+        updateStats();
+    },{once:true});
+}
+document.getElementById("likeButton").addEventListener("click",()=>performAction("like","right"));
+document.getElementById("skipButton").addEventListener("click",()=>performAction("skip","left"));
+document.getElementById("reportButton").addEventListener("click",()=>performAction("report","down"));
+
+document.querySelectorAll(".action-button").forEach(button=>{button.addEventListener("pointerdown",()=>button.classList.add("pressed"));["pointerup","pointercancel","pointerleave"].forEach(name=>button.addEventListener(name,()=>button.classList.remove("pressed")))});
+
+/* Debug menu — press P */
+const debugMenu=document.getElementById("debugMenu");let debugEnabled=false,mouseX=0,mouseY=0;
+document.addEventListener("mousemove",event=>{mouseX=event.clientX;mouseY=event.clientY});
+document.addEventListener("keydown",event=>{if(event.key.toLowerCase()==="p"&&!event.repeat&&!event.ctrlKey&&!event.altKey&&!event.metaKey&&! ["INPUT","TEXTAREA"].includes(document.activeElement.tagName)){debugEnabled=!debugEnabled;debugMenu.classList.toggle("visible",debugEnabled);if(debugEnabled)updateDebugMenu()}});
+function elementInfo(selector){const el=document.querySelector(selector);if(!el)return selector+": NOT FOUND";const r=el.getBoundingClientRect();return `${selector}\n  X: ${r.x.toFixed(1)} px\n  Y: ${r.y.toFixed(1)} px\n  Width: ${r.width.toFixed(1)} px\n  Height: ${r.height.toFixed(1)} px`}
+function updateDebugMenu(){if(!debugEnabled)return;debugMenu.textContent=["=== KATZEN APP DEBUG ===","Press P to close","",`Page: ${profilePage.classList.contains("visible")?"Profile":homePage.classList.contains("visible")?"Home":"Registration"}`,`Viewport: ${innerWidth} x ${innerHeight}`,`Mouse: ${mouseX}, ${mouseY}`,"",elementInfo(".cat-photo-frame"),"",elementInfo(".profile-avatar"),"",`Current cat: ${currentCat?.name??"none"}`,`Matches: ${matches}`,`Likes: ${likes}`,`Skipped: ${skipped}`,`Reports: ${reports}`,`Accessory: ${accessories[accessoryIndex].name}`].join("\n");requestAnimationFrame(updateDebugMenu)}
+</script>
+</body>
+</html>
