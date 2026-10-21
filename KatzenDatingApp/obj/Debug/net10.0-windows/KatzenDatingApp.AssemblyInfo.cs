@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("KatzenDatingApp")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b99995f87747ca0c8025451afafb09736d9bd10c")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8fb1b4230c6d0e368dc16c656986505d4ed69106")]
 [assembly: System.Reflection.AssemblyProductAttribute("KatzenDatingApp")]
 [assembly: System.Reflection.AssemblyTitleAttribute("KatzenDatingApp")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

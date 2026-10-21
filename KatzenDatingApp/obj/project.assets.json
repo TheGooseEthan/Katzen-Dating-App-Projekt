@@ -22,17 +22,6 @@
           }
         }
       }
-    },
-    "net10.0-windows/win-x64": {
-      "Microsoft.Web.WebView2/1.0.4258.31": {
-        "type": "package",
-        "native": {
-          "runtimes/win-x64/native/WebView2Loader.dll": {}
-        },
-        "build": {
-          "buildTransitive/Microsoft.Web.WebView2.targets": {}
-        }
-      }
     }
   },
   "libraries": {
@@ -200,20 +189,6 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
-        "downloadDependencies": [
-          {
-            "name": "Microsoft.AspNetCore.App.Runtime.win-x64",
-            "version": "[10.0.12, 10.0.12]"
-          },
-          {
-            "name": "Microsoft.NETCore.App.Runtime.win-x64",
-            "version": "[10.0.12, 10.0.12]"
-          },
-          {
-            "name": "Microsoft.WindowsDesktop.App.Runtime.win-x64",
-            "version": "[10.0.12, 10.0.12]"
-          }
-        ],
         "frameworkReferences": {
           "Microsoft.NETCore.App": {
             "privateAssets": "all"
@@ -513,11 +488,6 @@
           "System.Xml.XPath": "(,4.3.32767]",
           "System.Xml.XPath.XDocument": "(,5.0.32767]"
         }
-      }
-    },
-    "runtimes": {
-      "win-x64": {
-        "#import": []
       }
     }
   }
