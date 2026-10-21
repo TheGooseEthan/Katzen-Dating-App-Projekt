@@ -10,6 +10,8 @@ C:\Users\ethan\Katzen-Dating-App-Projekt\KatzenDatingApp\bin\Release\net10.0-win
 C:\Users\ethan\Katzen-Dating-App-Projekt\KatzenDatingApp\bin\Release\net10.0-windows\win-x64\publish\Benutzer Interface\Herzen.png
 C:\Users\ethan\Katzen-Dating-App-Projekt\KatzenDatingApp\bin\Release\net10.0-windows\win-x64\publish\Benutzer Interface\HintergrundRegistrierung.png
 C:\Users\ethan\Katzen-Dating-App-Projekt\KatzenDatingApp\bin\Release\net10.0-windows\win-x64\publish\Benutzer Interface\HomePage.png
+C:\Users\ethan\Katzen-Dating-App-Projekt\KatzenDatingApp\bin\Release\net10.0-windows\win-x64\publish\Benutzer Interface\LeaderboardButton.png
+C:\Users\ethan\Katzen-Dating-App-Projekt\KatzenDatingApp\bin\Release\net10.0-windows\win-x64\publish\Benutzer Interface\LeaderboardHintergrund.png
 C:\Users\ethan\Katzen-Dating-App-Projekt\KatzenDatingApp\bin\Release\net10.0-windows\win-x64\publish\Benutzer Interface\Logo.png
 C:\Users\ethan\Katzen-Dating-App-Projekt\KatzenDatingApp\bin\Release\net10.0-windows\win-x64\publish\Benutzer Interface\Match.png
 C:\Users\ethan\Katzen-Dating-App-Projekt\KatzenDatingApp\bin\Release\net10.0-windows\win-x64\publish\Benutzer Interface\ProfilHintergrund.png
@@ -26,13 +28,47 @@ C:\Users\ethan\Katzen-Dating-App-Projekt\KatzenDatingApp\bin\Release\net10.0-win
 C:\Users\ethan\Katzen-Dating-App-Projekt\KatzenDatingApp\bin\Release\net10.0-windows\win-x64\publish\Fotos-von-Katzen\Katze08.jpg
 C:\Users\ethan\Katzen-Dating-App-Projekt\KatzenDatingApp\bin\Release\net10.0-windows\win-x64\publish\Fotos-von-Katzen\Katze09.jpg
 C:\Users\ethan\Katzen-Dating-App-Projekt\KatzenDatingApp\bin\Release\net10.0-windows\win-x64\publish\Fotos-von-Katzen\Katze10.jpg
+C:\Users\ethan\Katzen-Dating-App-Projekt\KatzenDatingApp\bin\Release\net10.0-windows\win-x64\publish\Fotos-von-Katzen\Katze11.jpg
+C:\Users\ethan\Katzen-Dating-App-Projekt\KatzenDatingApp\bin\Release\net10.0-windows\win-x64\publish\Fotos-von-Katzen\Katze12.jpg
+C:\Users\ethan\Katzen-Dating-App-Projekt\KatzenDatingApp\bin\Release\net10.0-windows\win-x64\publish\Fotos-von-Katzen\Katze13.jpg
+C:\Users\ethan\Katzen-Dating-App-Projekt\KatzenDatingApp\bin\Release\net10.0-windows\win-x64\publish\Fotos-von-Katzen\Katze14.jpg
+C:\Users\ethan\Katzen-Dating-App-Projekt\KatzenDatingApp\bin\Release\net10.0-windows\win-x64\publish\Fotos-von-Katzen\Katze15.jpg
+C:\Users\ethan\Katzen-Dating-App-Projekt\KatzenDatingApp\bin\Release\net10.0-windows\win-x64\publish\Fotos-von-Katzen\Katze16.jpg
+C:\Users\ethan\Katzen-Dating-App-Projekt\KatzenDatingApp\bin\Release\net10.0-windows\win-x64\publish\Fotos-von-Katzen\Katze17.jpg
+C:\Users\ethan\Katzen-Dating-App-Projekt\KatzenDatingApp\bin\Release\net10.0-windows\win-x64\publish\Fotos-von-Katzen\Katze18.jpg
+C:\Users\ethan\Katzen-Dating-App-Projekt\KatzenDatingApp\bin\Release\net10.0-windows\win-x64\publish\Fotos-von-Katzen\Katze19.jpg
+C:\Users\ethan\Katzen-Dating-App-Projekt\KatzenDatingApp\bin\Release\net10.0-windows\win-x64\publish\Fotos-von-Katzen\Katze20.jpg
+C:\Users\ethan\Katzen-Dating-App-Projekt\KatzenDatingApp\bin\Release\net10.0-windows\win-x64\publish\Fotos-von-Katzen\Katze21.jpg
+C:\Users\ethan\Katzen-Dating-App-Projekt\KatzenDatingApp\bin\Release\net10.0-windows\win-x64\publish\Fotos-von-Katzen\Katze22.jpg
+C:\Users\ethan\Katzen-Dating-App-Projekt\KatzenDatingApp\bin\Release\net10.0-windows\win-x64\publish\Fotos-von-Katzen\Katze23.jpg
+C:\Users\ethan\Katzen-Dating-App-Projekt\KatzenDatingApp\bin\Release\net10.0-windows\win-x64\publish\Fotos-von-Katzen\Katze24.jpg
+C:\Users\ethan\Katzen-Dating-App-Projekt\KatzenDatingApp\bin\Release\net10.0-windows\win-x64\publish\Fotos-von-Katzen\Katze25.jpg
+C:\Users\ethan\Katzen-Dating-App-Projekt\KatzenDatingApp\bin\Release\net10.0-windows\win-x64\publish\Fotos-von-Katzen\Katze26.jpg
+C:\Users\ethan\Katzen-Dating-App-Projekt\KatzenDatingApp\bin\Release\net10.0-windows\win-x64\publish\Fotos-von-Katzen\Katze27.jpg
+C:\Users\ethan\Katzen-Dating-App-Projekt\KatzenDatingApp\bin\Release\net10.0-windows\win-x64\publish\Fotos-von-Katzen\Katze28.jpg
+C:\Users\ethan\Katzen-Dating-App-Projekt\KatzenDatingApp\bin\Release\net10.0-windows\win-x64\publish\Fotos-von-Katzen\Katze29.jpg
+C:\Users\ethan\Katzen-Dating-App-Projekt\KatzenDatingApp\bin\Release\net10.0-windows\win-x64\publish\Fotos-von-Katzen\Katze30.jpg
 C:\Users\ethan\Katzen-Dating-App-Projekt\KatzenDatingApp\bin\Release\net10.0-windows\win-x64\publish\Fotos-von-Katzen\Spieler.jpg
+C:\Users\ethan\Katzen-Dating-App-Projekt\KatzenDatingApp\bin\Release\net10.0-windows\win-x64\publish\Nationalitäten\BRA.jpg
 C:\Users\ethan\Katzen-Dating-App-Projekt\KatzenDatingApp\bin\Release\net10.0-windows\win-x64\publish\Nationalitäten\BUL.jpg
+C:\Users\ethan\Katzen-Dating-App-Projekt\KatzenDatingApp\bin\Release\net10.0-windows\win-x64\publish\Nationalitäten\CAN.jpg
+C:\Users\ethan\Katzen-Dating-App-Projekt\KatzenDatingApp\bin\Release\net10.0-windows\win-x64\publish\Nationalitäten\CHI.jpg
+C:\Users\ethan\Katzen-Dating-App-Projekt\KatzenDatingApp\bin\Release\net10.0-windows\win-x64\publish\Nationalitäten\FRA.jpg
 C:\Users\ethan\Katzen-Dating-App-Projekt\KatzenDatingApp\bin\Release\net10.0-windows\win-x64\publish\Nationalitäten\GER.jpg
 C:\Users\ethan\Katzen-Dating-App-Projekt\KatzenDatingApp\bin\Release\net10.0-windows\win-x64\publish\Nationalitäten\IND.jpg
+C:\Users\ethan\Katzen-Dating-App-Projekt\KatzenDatingApp\bin\Release\net10.0-windows\win-x64\publish\Nationalitäten\ISR.jpg
+C:\Users\ethan\Katzen-Dating-App-Projekt\KatzenDatingApp\bin\Release\net10.0-windows\win-x64\publish\Nationalitäten\ITA.jpg
 C:\Users\ethan\Katzen-Dating-App-Projekt\KatzenDatingApp\bin\Release\net10.0-windows\win-x64\publish\Nationalitäten\JAP.jpg
+C:\Users\ethan\Katzen-Dating-App-Projekt\KatzenDatingApp\bin\Release\net10.0-windows\win-x64\publish\Nationalitäten\KOR.jpg
+C:\Users\ethan\Katzen-Dating-App-Projekt\KatzenDatingApp\bin\Release\net10.0-windows\win-x64\publish\Nationalitäten\MEX.jpg
+C:\Users\ethan\Katzen-Dating-App-Projekt\KatzenDatingApp\bin\Release\net10.0-windows\win-x64\publish\Nationalitäten\NET.jpg
+C:\Users\ethan\Katzen-Dating-App-Projekt\KatzenDatingApp\bin\Release\net10.0-windows\win-x64\publish\Nationalitäten\POL.jpg
 C:\Users\ethan\Katzen-Dating-App-Projekt\KatzenDatingApp\bin\Release\net10.0-windows\win-x64\publish\Nationalitäten\ROM.jpg
 C:\Users\ethan\Katzen-Dating-App-Projekt\KatzenDatingApp\bin\Release\net10.0-windows\win-x64\publish\Nationalitäten\RUS.jpg
+C:\Users\ethan\Katzen-Dating-App-Projekt\KatzenDatingApp\bin\Release\net10.0-windows\win-x64\publish\Nationalitäten\SAU.jpg
+C:\Users\ethan\Katzen-Dating-App-Projekt\KatzenDatingApp\bin\Release\net10.0-windows\win-x64\publish\Nationalitäten\SWI.jpg
+C:\Users\ethan\Katzen-Dating-App-Projekt\KatzenDatingApp\bin\Release\net10.0-windows\win-x64\publish\Nationalitäten\THA.jpg
+C:\Users\ethan\Katzen-Dating-App-Projekt\KatzenDatingApp\bin\Release\net10.0-windows\win-x64\publish\Nationalitäten\TUR.jpg
 C:\Users\ethan\Katzen-Dating-App-Projekt\KatzenDatingApp\bin\Release\net10.0-windows\win-x64\publish\Nationalitäten\UNI.jpg
 C:\Users\ethan\Katzen-Dating-App-Projekt\KatzenDatingApp\bin\Release\net10.0-windows\win-x64\publish\Nationalitäten\USA.jpg
 C:\Users\ethan\Katzen-Dating-App-Projekt\KatzenDatingApp\bin\Release\net10.0-windows\win-x64\publish\runtimes\win-x64\native\WebView2Loader.dll

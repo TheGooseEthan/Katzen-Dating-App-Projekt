@@ -18,9 +18,9 @@ Profilverwaltung und Match-Statistiken
 
 Technologien/ Extensions
 
-Python         - Programmierlogik
+HTML und C#    - Programmierlogik
 CSS            - Gestaltung und Layout
-Git und GitHub - Versionsverwaltung und Zusammenarbeit
+Git und GitHub - Versionsverwaltung
 HTML           - Struktur der Weboberfläche
 VS Code        - Entwicklungsumgebung
 
@@ -38,6 +38,27 @@ https://de.pinterest.com/pin/890023945094917554/
 https://de.pinterest.com/pin/1080582504365197878/
 https://de.pinterest.com/pin/991284567988914264/
 https://de.pinterest.com/pin/156077943322533140/
+https://de.pinterest.com/pin/805862927092728492/
+https://de.pinterest.com/pin/1089589703618249132/
+https://de.pinterest.com/pin/924293523535463365/
+https://de.pinterest.com/pin/815573813751514575/
+https://de.pinterest.com/pin/879961214734244467/
+https://de.pinterest.com/pin/603060206330460166/
+https://de.pinterest.com/pin/974114594395072342/
+https://de.pinterest.com/pin/918875130241448204/
+https://de.pinterest.com/pin/653936808439459607/
+https://de.pinterest.com/pin/738590407672255933/
+https://de.pinterest.com/pin/111745634497150081/
+https://de.pinterest.com/pin/646336984033564526/
+https://de.pinterest.com/pin/1143914374109138084/
+https://de.pinterest.com/pin/539024649171883446/
+https://de.pinterest.com/pin/752664156451793046/
+https://de.pinterest.com/pin/750482725444015793/
+https://de.pinterest.com/pin/760826930812417227/
+https://de.pinterest.com/pin/973551644458648673/
+https://de.pinterest.com/pin/674273375463577667/
+https://de.pinterest.com/pin/868913321885104835/
+
 
 Accessories von Pinterest
 https://de.pinterest.com/pin/947022627927432684/
@@ -59,6 +80,20 @@ https://id.wikipedia.org/wiki/Berkas:Flag_of_Indonesia.svg
 https://en.wikipedia.org/wiki/Flag_of_Bulgaria#/media/File:Flag_of_Bulgaria.svg
 https://en.wikipedia.org/wiki/Romania#/media/File:Flag_of_Romania.svg
 https://en.wikipedia.org/wiki/United_States#/media/File:Flag_of_the_United_States_(DDD-F-416E_specifications).svg
+https://en.wikipedia.org/wiki/Italy#/media/File:Flag_of_Italy.svg
+https://en.wikipedia.org/wiki/France#/media/File:Flag_of_France.svg
+https://en.wikipedia.org/wiki/Netherlands#/media/File:Flag_of_the_Netherlands.svg
+https://en.wikipedia.org/wiki/Switzerland#/media/File:Flag_of_Switzerland_(Pantone).svg
+https://en.wikipedia.org/wiki/Flag_of_China#/media/File:Flag_of_the_People's_Republic_of_China.svg
+https://en.wikipedia.org/wiki/Brazil#/media/File:Flag_of_Brazil.svg
+https://en.wikipedia.org/wiki/Mexico#/media/File:Flag_of_Mexico.svg
+https://en.wikipedia.org/wiki/Canada#/media/File:Flag_of_Canada_(Pantone).svg
+https://en.wikipedia.org/wiki/South_Korea#/media/File:Flag_of_South_Korea.svg
+https://en.wikipedia.org/wiki/Israel#/media/File:Flag_of_Israel.svg
+https://de.wikipedia.org/wiki/Saudi-Arabien#/media/Datei:Flag_of_Saudi_Arabia.svg
+https://en.wikipedia.org/wiki/Turkey#/media/File:Flag_of_Turkey.svg
+https://en.wikipedia.org/wiki/Thailand#/media/File:Flag_of_Thailand.svg
+https://en.wikipedia.org/wiki/Poland#/media/File:Flag_of_Poland.svg
 
 Sound Effekte
 

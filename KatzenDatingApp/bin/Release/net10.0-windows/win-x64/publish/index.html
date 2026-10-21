@@ -29,6 +29,13 @@ html,body{margin:0;width:100%;height:100%;overflow:hidden;font-family:Arial,sans
 
 /* HOMEPAGE */
 #homePage{z-index:10}#homeBackground{z-index:0}#selectionImage{z-index:2}
+.leaderboard-button-art{z-index:4;pointer-events:none}
+/* The artwork is a 1920x1080 canvas overlay. Magnify around its existing button location. */
+#leaderboardButtonImage{transform:scale(1.4);transform-origin:70.5% 20.5%} 
+.leaderboard-button{position:absolute;left:65.5%;top:14%;width:12%;height:13%;padding:0;border:0;border-radius:0;background:transparent;z-index:85;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.leaderboard-button:focus-visible{outline:3px solid #7775b7;outline-offset:2px}
+#leaderboardPage{z-index:70}#leaderboardBackground{z-index:0}#leaderboardBackImage{z-index:1}
+#leaderboardBackButton{left:1.3%;top:1.2%;width:5.8%;height:10%}
 .home-avatar{position:absolute;left:80.8%;top:1.8%;width:17.2%;aspect-ratio:1;padding:0;border:0;border-radius:50%;overflow:hidden;background:transparent;z-index:25;cursor:pointer;appearance:none;outline:none;box-shadow:none;-webkit-tap-highlight-color:transparent}
 .home-avatar:hover,.home-avatar:active,.home-avatar:focus,.home-avatar:focus-visible{outline:none;border:0;box-shadow:none;background:transparent;transform:none}
 .avatar-photo,.avatar-accessory{position:absolute;inset:0;width:100%;height:100%}
@@ -130,6 +137,8 @@ html,body{margin:0;width:100%;height:100%;overflow:hidden;font-family:Arial,sans
 <div class="canvas" id="homeCanvas">
 <img id="homeBackground" class="full-layer" alt="">
 <img id="selectionImage" class="full-layer" alt="">
+<img id="leaderboardButtonImage" class="full-layer leaderboard-button-art" alt="">
+<button id="openLeaderboardButton" class="leaderboard-button" type="button" aria-label="Leaderboard öffnen"></button>
 <button id="openProfileButton" class="home-avatar" type="button" aria-label="Profil öffnen">
 <img id="homePlayerPhoto" class="avatar-photo" alt="">
 <img id="homePlayerAccessory" class="avatar-accessory" alt="">
@@ -151,6 +160,15 @@ html,body{margin:0;width:100%;height:100%;overflow:hidden;font-family:Arial,sans
 <img id="xedOverlay" class="full-layer feedback-layer" alt="">
 <img id="matchOverlay" class="full-layer" alt="">
 <div id="allDoneMessage">Alle Profile gesehen!<br><small>Du hast alle verfügbaren Katzen bewertet.</small></div>
+</div>
+</section>
+
+<!-- LEADERBOARD PAGE -->
+<section id="leaderboardPage" class="app-page" aria-label="Leaderboard">
+<div class="canvas" id="leaderboardCanvas">
+<img id="leaderboardBackground" class="full-layer" alt="">
+<img id="leaderboardBackImage" class="full-layer" alt="">
+<button id="leaderboardBackButton" class="profile-button" type="button" aria-label="Zur Homepage"></button>
 </div>
 </section>
 
@@ -314,6 +332,9 @@ setAsset(document.getElementById("likedOverlay"),UI+"Geherzt.png");
 setAsset(document.getElementById("xedOverlay"),UI+"Xed.png");
 setAsset(document.getElementById("matchOverlay"),UI+"Match.png");
 setAsset(document.getElementById("profileBackground"),UI+"ProfilHintergrund.png");
+setAsset(document.getElementById("leaderboardBackground"),UI+"LeaderboardHintergrund.png");
+setAsset(document.getElementById("leaderboardButtonImage"),UI+"LeaderboardButton.png");
+setAsset(document.getElementById("leaderboardBackImage"),UI+"XBack.png");
 setAsset(document.getElementById("profileBackImage"),UI+"XBack.png");
 setAsset(document.getElementById("accessoryLeftImage"),UI+"AuswahlLinks.png");
 setAsset(document.getElementById("accessoryRightImage"),UI+"AuswahlRechts.png");
@@ -330,13 +351,33 @@ const cats=[
 {id:"cat01",photo:"Fotos-von-Katzen/Katze01.jpg",name:"Polina Svetlana",age:22,country:"Russia",flag:"RUS.jpg",description:"Vodka enthusist, and searching for a cat who can treat me right. No soft sissies!"},
 {id:"cat02",photo:"Fotos-von-Katzen/Katze02.jpg",name:"George Smith",age:34,country:"United Kingdom",flag:"UNI.jpg",description:"British by birth, stoic by nature. Interested in tea and biscuits."},
 {id:"cat03",photo:"Fotos-von-Katzen/Katze03.jpg",name:"Karl Schmidt",age:27,country:"Germany",flag:"GER.jpg",description:"Best employee of Deutsche Bank. Restaurant date with me but dont be late tho. :)"},
-{id:"cat04",photo:"Fotos-von-Katzen/Katze04.jpg",name:"Adit Pratama",age:24,country:"India",flag:"IND.jpg",description:"YOLO! Im just living my life. Motor rides at night with u?"},
+{id:"cat04",photo:"Fotos-von-Katzen/Katze04.jpg",name:"Adit Pratama",age:24,country:"Indonesia",flag:"IND.jpg",description:"YOLO! Im just living my life. Motor rides at night with u?"},
 {id:"cat05",photo:"Fotos-von-Katzen/Katze05.jpg",name:"Kawaii Bobu",age:21,country:"Japan",flag:"JAP.jpg",description:"Im just a shy otaku. Currently looking for someone to watch anime and chill <3"},
 {id:"cat06",photo:"Fotos-von-Katzen/Katze06.jpg",name:"Alexandru Moroi",age:136,country:"Romania",flag:"ROM.jpg",description:"Very interested in anyone who is human and has a lot of blood."},
 {id:"cat07",photo:"Fotos-von-Katzen/Katze07.jpg",name:"Ivan Nadym",age:23,country:"Russia",flag:"RUS.jpg",description:"Have you ever tried walking outside in temperatures that can freeze your body? With me you'll stay warm ;)"},
 {id:"cat08",photo:"Fotos-von-Katzen/Katze08.jpg",name:"Ratmyr Mitko",age:53,country:"Bulgaria",flag:"BUL.jpg",description:"Looks might be decieving but I can promise you I know how to treat a woman."},
 {id:"cat09",photo:"Fotos-von-Katzen/Katze09.jpg",name:"Felix Freeman",age:33,country:"Romania",flag:"ROM.jpg",description:"Tax Evasion? No, that's not why I am living in Romania! I only pay in cash on dates."},
-{id:"cat10",photo:"Fotos-von-Katzen/Katze10.jpg",name:"Tom Sail",age:35,country:"United States",flag:"USA.jpg",description:"Famous from many movies... yeah. Love laughing all the time."}
+{id:"cat10",photo:"Fotos-von-Katzen/Katze10.jpg",name:"Tom Sail",age:35,country:"United States",flag:"USA.jpg",description:"Famous from many movies... yeah. Love laughing all the time."},
+{id:"cat11",photo:"Fotos-von-Katzen/Katze11.jpg",name:"Nicha Srisuk",age:27,country:"Thailand",flag:"THA.jpg",description:"I'm a Thai ladyboy and a cabaret performer. I collect ridiculous sunglasses and refuse to lose at karaoke."},
+{id:"cat12",photo:"Fotos-von-Katzen/Katze12.jpg",name:"Milo Fischer",age:24,country:"Germany",flag:"GER.jpg",description:"I work from home. My human keeps calling me the co-worker, so I expect a share of the rent."},
+{id:"cat13",photo:"Fotos-von-Katzen/Katze13.jpg",name:"Joao Silva",age:25,country:"Brazil",flag:"BRA.jpg",description:"That scarf was for one match. Now I wear it everywhere and somehow get blamed when the team loses."},
+{id:"cat14",photo:"Fotos-von-Katzen/Katze14.jpg",name:"Takeshi Nakamura",age:29,country:"Japan",flag:"JAP.jpg",description:"The sushi was meant for dinner. I sat down and became the dinner supervisor. Nobody asked me to leave."},
+{id:"cat15",photo:"Fotos-von-Katzen/Katze15.jpg",name:"David Mizrahi",age:31,country:"Israel",flag:"ISR.jpg",description:"I came for the view, stayed for the attention, and checked every photo to make sure I looked majestic."},
+{id:"cat16",photo:"Fotos-von-Katzen/Katze16.jpg",name:"Heidi Bergmann",age:26,country:"Switzerland",flag:"SWI.jpg",description:"I hike until my legs give up, then make everyone wait while I take one more mountain photo."},
+{id:"cat17",photo:"Fotos-von-Katzen/Katze17.jpg",name:"Mae Mae Chen",age:24,country:"China",flag:"CHI.jpg",description:"I don't beg for attention. I sit directly on your keyboard until you understand the situation."},
+{id:"cat18",photo:"Fotos-von-Katzen/Katze18.jpg",name:"Khalid Al-Mansour",age:35,country:"Saudi Arabia",flag:"SAU.jpg",description:"My human bought me a heated marble floor. I still prefer the cardboard box it came in."},
+{id:"cat19",photo:"Fotos-von-Katzen/Katze19.jpg",name:"Miso Tanaka",age:22,country:"Canada",flag:"CAN.jpg",description:"I sit in the garden looking mysterious. Mostly I'm waiting for someone to open the door."},
+{id:"cat20",photo:"Fotos-von-Katzen/Katze20.jpg",name:"Jakub Kowalski",age:30,country:"Poland",flag:"POL.jpg",description:"I borrowed this hoodie once. It belongs to me now, and I will not be taking questions."},
+{id:"cat21",photo:"Fotos-von-Katzen/Katze21.jpg",name:"Francois Beaumont",age:32,country:"France",flag:"FRA.jpg",description:"I wore the scarf once and now everyone expects me to have opinions about art. I just like the chair."},
+{id:"cat22",photo:"Fotos-von-Katzen/Katze22.jpg",name:"Taro Yamada",age:28,country:"Japan",flag:"JAP.jpg",description:"I put this headband on to look serious. My human says I look like I'm opening a tiny restaurant."},
+{id:"cat23",photo:"Fotos-von-Katzen/Katze23.jpg",name:"Nyx Shadowpaw",age:25,country:"Germany",flag:"GER.jpg",description:"The camera flash annoyed me in 2021. I have not forgotten, and I would like everyone to know that."},
+{id:"cat24",photo:"Fotos-von-Katzen/Katze24.jpg",name:"Oliver White",age:23,country:"Canada",flag:"CAN.jpg",description:"I get this close to the camera because personal space is a human problem."},
+{id:"cat25",photo:"Fotos-von-Katzen/Katze25.jpg",name:"Matteo Bellini",age:29,country:"Italy",flag:"ITA.jpg",description:"I'm gelato's biggest fan. I keep a flavor ranking on my phone and will cross town for a new scoop."},
+{id:"cat26",photo:"Fotos-von-Katzen/Katze26.jpg",name:"Diego Hernandez",age:27,country:"Mexico",flag:"MEX.jpg",description:"The hat stays on. You can ask to borrow it, but we both know what the answer will be."},
+{id:"cat27",photo:"Fotos-von-Katzen/Katze27.jpg",name:"Mei Mei Chen",age:22,country:"China",flag:"CHI.jpg",description:"Mae Mae thinks she's the favorite. I have screenshots, receipts, and a folder called evidence."},
+{id:"cat28",photo:"Fotos-von-Katzen/Katze28.jpg",name:"Min-jun Kim",age:26,country:"South Korea",flag:"KOR.jpg",description:"Taekwondo six days a week. I can break a board, but the rice cooker clicking still gets me."},
+{id:"cat29",photo:"Fotos-von-Katzen/Katze29.jpg",name:"Ravi Sharma",age:24,country:"Netherlands",flag:"NET.jpg",description:"We took 47 photos with that strawberry on my head. This was the only one I approved."},
+{id:"cat30",photo:"Fotos-von-Katzen/Katze30.jpg",name:"Black Cat",age:20,country:"United States",flag:"USA.jpg",description:"Oh shit sorry my bad."}
 ];
 function shuffle(list){const copy=[...list];for(let i=copy.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[copy[i],copy[j]]=[copy[j],copy[i]]}return copy}
 let catQueue=shuffle(cats),currentCat=null,isAnimating=false;
@@ -377,7 +418,7 @@ function renderCat(cat){
 
 /* Registration */
 const registrationForm=document.getElementById("registrationForm"),nameInput=document.getElementById("name"),passwordInput=document.getElementById("password"),okButton=document.getElementById("okButton");
-const registrationPage=document.getElementById("registrationPage"),registrationBackground=document.getElementById("registrationBackground"),homePage=document.getElementById("homePage"),profilePage=document.getElementById("profilePage");
+const registrationPage=document.getElementById("registrationPage"),registrationBackground=document.getElementById("registrationBackground"),homePage=document.getElementById("homePage"),profilePage=document.getElementById("profilePage"),leaderboardPage=document.getElementById("leaderboardPage");
 function updateOkButton(){okButton.classList.toggle("visible",nameInput.value.trim().length>0&&passwordInput.value.length>=8)}
 nameInput.addEventListener("input",updateOkButton);passwordInput.addEventListener("input",updateOkButton);
 registrationForm.addEventListener("submit",event=>{event.preventDefault();const playerName=nameInput.value.trim();if(!playerName||passwordInput.value.length<8)return;clearInterval(floatingHeartTimer);heartsContainer.style.display="none";registrationPage.style.display="none";registrationBackground.style.display="none";document.getElementById("playerDisplayName").value=playerName;renderCat(getNextCat());homePage.classList.add("visible")});
@@ -386,10 +427,12 @@ registrationForm.addEventListener("submit",event=>{event.preventDefault();const 
 const playerDisplayName=document.getElementById("playerDisplayName"),statsMatches=document.getElementById("statsMatches"),statsLikes=document.getElementById("statsLikes"),statsSkipped=document.getElementById("statsSkipped");
 function updateStats(){statsMatches.textContent=matches;statsLikes.textContent=likes;statsSkipped.textContent=skipped}
 document.getElementById("openProfileButton").addEventListener("click",()=>{homePage.classList.remove("visible");profilePage.classList.add("visible");updateStats()});
+document.getElementById("openLeaderboardButton").addEventListener("click",()=>{homePage.classList.remove("visible");leaderboardPage.classList.add("visible")});
+document.getElementById("leaderboardBackButton").addEventListener("click",()=>{leaderboardPage.classList.remove("visible");homePage.classList.add("visible")});
 document.getElementById("profileBackButton").addEventListener("click",()=>{profilePage.classList.remove("visible");homePage.classList.add("visible")});
 
 /* Player nationality flag */
-const playerFlags=[{country:"Russia",file:"RUS.jpg"},{country:"United Kingdom",file:"UNI.jpg"},{country:"Germany",file:"GER.jpg"},{country:"India",file:"IND.jpg"},{country:"Japan",file:"JAP.jpg"},{country:"Romania",file:"ROM.jpg"},{country:"Bulgaria",file:"BUL.jpg"},{country:"United States",file:"USA.jpg"}];
+const playerFlags=[{country:"Russia",file:"RUS.jpg"},{country:"United Kingdom",file:"UNI.jpg"},{country:"Germany",file:"GER.jpg"},{country:"Indonesia",file:"IND.jpg"},{country:"Japan",file:"JAP.jpg"},{country:"Romania",file:"ROM.jpg"},{country:"Bulgaria",file:"BUL.jpg"},{country:"United States",file:"USA.jpg"},{country:"Thailand",file:"THA.jpg"},{country:"Brazil",file:"BRA.jpg"},{country:"Israel",file:"ISR.jpg"},{country:"Switzerland",file:"SWI.jpg"},{country:"China",file:"CHI.jpg"},{country:"Saudi Arabia",file:"SAU.jpg"},{country:"Poland",file:"POL.jpg"},{country:"France",file:"FRA.jpg"},{country:"Italy",file:"ITA.jpg"},{country:"Mexico",file:"MEX.jpg"},{country:"South Korea",file:"KOR.jpg"},{country:"Canada",file:"CAN.jpg"}];
 let playerFlagIndex=2;const playerFlagPreview=document.getElementById("playerFlagPreview"),playerFlagButton=document.getElementById("playerFlagButton");
 function updatePlayerFlag(){const flag=playerFlags[playerFlagIndex];setAsset(playerFlagPreview,"Nationalitäten/"+flag.file);playerFlagPreview.alt=flag.country;playerFlagButton.title="Nationalität: "+flag.country}
 updatePlayerFlag();playerFlagButton.addEventListener("click",()=>{playerFlagIndex=(playerFlagIndex+1)%playerFlags.length;updatePlayerFlag()});
